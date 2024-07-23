@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        .content {
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 90%; /* Ensure content fits on smaller screens */
+            width: 300px;
+            height: auto; /* Allow height to adjust based on content */
+            overflow: hidden; /* Prevent overflow */
+        }
+        img {
+            width: 100%; /* Make image responsive */
+            max-width: 150px; /* Ensure image doesn't get too large */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 20%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 20px; /* Adjust font size for better readability on small screens */
+            color: #ff6b6b;
+            margin-bottom: 20px; /* Add margin below the heading */
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically on small screens */
+            gap: 10px; /* Reduce space between buttons */
+            margin-bottom: 20px; /* Space between buttons and big button */
+        }
+        .button {
+            padding: 12px 20px;
+            font-size: 16px; /* Adjust font size for better readability */
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            width: 100%; /* Make buttons full-width */
+            max-width: 200px; /* Ensure buttons don't get too large */
+            margin: 0 auto; /* Center buttons horizontally */
+        }
+        #yesButton {
+            background-color: #4caf50;
+        }
+        #yesButton:hover {
+            background-color: #45a049;
+        }
+        #noButton {
+            background-color: #f44336;
+        }
+        #noButton:hover {
+            background-color: #d32f2f;
+        }
+        #yesButton.hidden, #noButton.hidden {
+            display: none; /* Hide the buttons */
+        }
+        #bigButton.hidden {
+            display: none; /* Hide the big button initially */
+        }
+        #bigButton {
+            background-color: #4caf50; /* Green background */
+            color: #ffffff; /* White text */
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.8); /* Glowing effect */
+            max-width: 100%; /* Make button responsive */
+        }
+        #bigButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px; /* Smaller font size on very small screens */
+            }
+            .button {
+                font-size: 14px; /* Smaller font size for buttons */
+                padding: 10px 15px; /* Adjust padding for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <img src="https://media1.tenor.com/m/sz-XG3TLQx8AAAAC/bugcat-capoo.gif" alt="Cute Image" id="middleImage">
+        <h1>Do you love me?</h1>
+        <div class="button-container">
+            <button class="button" id="yesButton">Yes</button>
+            <button class="button" id="noButton">No</button>
+        </div>
+        <button class="button hidden" id="bigButton">Yes, I do love you</button>
+    </div>
+    <script>
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const bigButton = document.getElementById('bigButton');
+        const content = document.querySelector('.content');
+        let noClickCount = 0;
+        const maxClicks = 6;
+
+        yesButton.addEventListener('click', () => {
+            content.innerHTML = '<h1>I love you too  mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah</h1>';
+        });
+
+        noButton.addEventListener('click', () => {
+            noClickCount++;
+            if (noClickCount < maxClicks) {
+                moveNoButton();
+            } else {
+                noButton.classList.add('hidden'); // Hide the No button
+                yesButton.classList.add('hidden'); // Hide the Yes button
+                bigButton.classList.remove('hidden'); // Show the big button
+                bigButton.addEventListener('click', () => {
+                    window.location.href = 'love-page.html'; // Redirect to the new page
+                });
+                noButton.removeEventListener('click', arguments.callee); // Remove click event to stop further clicks
+            }
+        });
+
+        function moveNoButton() {
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+            const contentWidth = content.clientWidth;
+            const contentHeight = content.clientHeight;
+            const maxX = contentWidth - buttonWidth;
+            const maxY = contentHeight - buttonHeight;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            noButton.style.position = 'absolute'; // Ensure the button moves correctly
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
